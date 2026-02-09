@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love – Princessss ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#020024,#090979,#ff1e56);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* Firework Sky Canvas */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+section{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:40px 20px;
+  text-align:center
+}
+
+h1.title{
+  font-family:'Great Vibes',cursive;
+  font-size:70px;
+  animation:glow 3s infinite alternate
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff}
+  to{text-shadow:0 0 25px #ff1e56,0 0 40px #ff1e56}
+}
+
+.card{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(8px);
+  padding:35px;
+  border-radius:25px;
+  max-width:900px;
+  box-shadow:0 10px 25px rgba(0,0,0,.3)
+}
+
+.btn{
+  margin-top:25px;
+  padding:14px 36px;
+  border-radius:50px;
+  background:#ff1e56;
+  border:none;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.25)
+}
+.btn:hover{transform:scale(1.05)}
+
+.hidden{display:none}
+
+/* 3D Ring */
+.ring3d{
+  width:140px;
+  height:140px;
+  background:url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/contain;
+  animation:spin 4s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(360deg)}
+}
+
+/* Typing Effect */
+.typing{
+  border-right:3px solid #fff;
+  white-space:pre-wrap;
+  overflow:hidden;
+  animation:blink .8s infinite;
+  min-height:150px;
+}
+
+@keyframes blink{
+  50%{border-color:transparent}
+}
+
+/* Game */
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(4,70px);
+  gap:12px;
+  justify-content:center;
+}
+
+.game-card{
+  width:70px;
+  height:70px;
+  background:#ff1e56;
+  border-radius:12px;
+  font-size:35px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:.5s;
+}
+
+.game-card.flip{
+  background:white;
+  color:#ff1e56;
+}
+
+/* Ring popup */
+#ringPopup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999
+}
+
+#ringPopup .box{
+  background:white;
+  color:#ff1e56;
+  padding:35px;
+  border-radius:25px;
+  text-align:center;
+  max-width:90%;
+  animation:zoom .6s ease
+}
+
+@keyframes zoom{
+  from{transform:scale(.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2023/02/28/audio_0c21a5c6c4.mp3">
+</audio>
+
+<section>
+<h1 class="title">For my Princess ❤️</h1>
+<h2>From your Prince</h2>
+<p>Scroll slowly and feel every heartbeat…</p>
+<button class="btn" onclick="scrollToId('letter')">Read My Heart 💌</button>
+<button class="btn" onclick="scrollToId('games')">Play Love Games 🎮</button>
+</section>
+
+<!-- Love Letter Page -->
+<section id="letter">
+<div class="card">
+<h2>💌 From My Heart</h2>
+<p id="typingText" class="typing"></p>
+</div>
+<button class="btn" onclick="scrollToId('games')">Next 💖</button>
+</section>
+
+<!-- Games -->
+<section id="games">
+<h1 class="title">🎮 Love Games 💞</h1>
+
+<h2>🃏 Match The Love Emojis</h2>
+<div class="game-grid" id="game"></div>
+
+<br><br>
+
+<h2>💞 How Well Do You Know Me?</h2>
+<div class="card quiz">
+<p>Who loves more?</p>
+<button class="btn" onclick="quiz('correct')">You 😘</button>
+<button class="btn" onclick="quiz('wrong')">Me 😏</button>
+<p id="quizResult"></p>
+</div>
+
+<button class="btn" onclick="scrollToId('proposal')">Final Surprise 💍</button>
+</section>
+
+<!-- Proposal Page -->
+<section id="proposal">
+<h1>💍 Will You Be My Valentine, babyy💞?</h1>
+<h2>And will you Stay With Me Forever? 🥹</h2>
+
+<div class="ring3d"></div>
+
+<button class="btn" onclick="yesAnswer()">YES 💖</button>
+<button class="btn" id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+</section>
+
+<section id="final" class="hidden">
+<div class="card">
+<h1 class="title">Youuu Said YES 😭❤️ Hurryahhhhhhhhh🥳❤️</h1>
+<p>
+Hey baby,<br><br>
+t’s been a months, that we are together growing and being better for each other. Can you remember the first day? When we talked about dating each other. The journey from friendship to relationship was a bit unplanned or unpredictable but I’m glad that unexpected thing became the best decision for me.<br><br>
+
+Both of us were confused and we were so scared about this, but time helped us to be better to be stronger and to be perfect for each other.<br><br>
+
+Thanks alot deeva for everything for being my partner, for being my supporter, for being my strength, for being my best friend, and my girlfriend. Thanks for coming into my life and being my life now...<br><br>
+<strong>I LOVE YOU MY PRINCESS ❤️</strong>
+</p>
+</div>
+</section>
+
+<!-- Ring Popup -->
+<div id="ringPopup">
+  <div class="box">
+    <div class="ring3d"></div>
+    <h2>Thanks baby for being with me for choosing me again and again, for being there for me everytime and loving me the way I never thought I would ever get loved. And I will always love you even more than you do. <br>
+
+    <h2>I love you mutu🫀❤️</h2>
+    <button class="btn" onclick="finalCelebrate()"> Tap for surprise😍</button>
+  </div>
+</div>
+
+<script>
+/* Scroll */
+function scrollToId(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'})
+}
+
+/* Moving NO Button */
+function moveNo(){
+  const btn=document.getElementById('noBtn');
+  btn.style.position='absolute';
+  btn.style.left=Math.random()*80+'vw';
+  btn.style.top=Math.random()*80+'vh';
+}
+
+/* Firework Background */
+const canvas=document.getElementById('fireworks');
+const ctx=canvas.getContext('2d');
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+window.onresize=()=>{canvas.width=innerWidth;canvas.height=innerHeight}
+
+function firework(){
+  let x=Math.random()*canvas.width;
+  let y=Math.random()*canvas.height/2;
+  let r=0;
+  let a=1;
+  let i=setInterval(()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${a})`;
+    ctx.fill();
+    r+=3;
+    a-=.03;
+    if(a<=0)clearInterval(i);
+  },30)
+}
+setInterval(firework,700);
+
+/* Typing */
+const text=`Hey baby,
+In a world full of chaos, you are my calm, my peace, my happiness and my forever..❤️`;
+let i=0;
+function typeEffect(){
+  if(i<text.length){
+    typingText.innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typeEffect,45);
+  }
+}
+typeEffect();
+
+/* Memory Game */
+const emojis=['❤️','💖','😍','😘','❤️','💖','😍','😘'];
+let shuffled=emojis.sort(()=>Math.random()-0.5);
+let first=null,lock=false;
+
+shuffled.forEach(e=>{
+  let d=document.createElement('div');
+  d.className='game-card';
+  d.innerHTML='❓';
+  d.onclick=()=>flip(d,e);
+  game.appendChild(d);
+});
+
+function flip(card,emoji){
+  if(lock||card.classList.contains('flip'))return;
+  card.classList.add('flip');
+  card.innerHTML=emoji;
+  if(!first) first=card;
+  else{
+    if(first.innerHTML===emoji){first=null;}
+    else{
+      lock=true;
+      setTimeout(()=>{
+        first.classList.remove('flip');
+        first.innerHTML='❓';
+        card.classList.remove('flip');
+        card.innerHTML='❓';
+        first=null;
+        lock=false;
+      },700);
+    }
+  }
+}
+
+/* Quiz */
+function quiz(ans){
+  quizResult.innerHTML=ans=='correct'?"Correct 😘 You love me the most ❤️":"Wrong 😜 But I love you more 😍";
+}
+
+/* Proposal */
+function yesAnswer(){
+  ringPopup.style.display='flex';
+}
+
+function finalCelebrate(){
+  ringPopup.style.display='none';
+  final.classList.remove('hidden');
+  scrollToId('final');
+}
+</script>
+
+</body>
+</html>
